@@ -320,6 +320,12 @@ class FeedParserRSS2Element implements IItem
 		return $items->item(0)->nodeValue;
 	}
 
+    public function getDescription()
+    {
+        $items = $this->xpath->evaluate('//description');
+        return $items->length === 0 ? '' : $items->item(0)->nodeValue;
+    }
+
 	/**
 	 * Get date of entry. Query over tree for <updated> and get content of tag
 	 *

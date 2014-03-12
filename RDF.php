@@ -360,6 +360,15 @@ class FeedParserRDFElement implements IItem
 		return $items->item(0)->nodeValue;
 	}
 
+    public function getDescription()
+    {
+        $items = $this->xpath->evaluate('//dc:description');
+        if (empty($items->item(0)->nodeValue)) {
+            $items = $this->xpath->evaluate('//rss:description');
+        }
+        return $items->length === 0 ? '' : $items->item(0)->nodeValue;
+    }
+
 	/**
 	 * Get date of entry. Query over tree for <pubDate> and get content of tag
 	 *

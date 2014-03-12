@@ -4,7 +4,7 @@
 require_once('FeedParser.php');
 
 // Get XML serialization of feed
-$xml = file_get_contents($_POST['filename']);
+$xml = file_get_contents($_GET['feed']);
 
 // This is great. To work with feed we invoke only base class. All other work is 
 // transparent.
@@ -24,32 +24,32 @@ $items = $feed->getItems();
 $i=1;
 foreach($items as $item)
 {
-	//Because we have interface for items, we invoke interface methods
-	echo "<h1>";
-	if(is_empty($item->getLink()))
-		echo '<a href="#">';
-	else
-		echo '<a href="'.$item->getLink().'">';
+    //Because we have interface for items, we invoke interface methods
+    echo "<h1>";
+    if(is_empty($item->getLink()))
+      echo '<a href="#">';
+    else
+      echo '<a href="'.$item->getLink().'">';
 
-	if(is_empty($item->getTitle()))
-		echo "No title";
-	else
-		echo "$i. ".$item->getTitle();
-	echo "</a>";
+    if(is_empty($item->getTitle()))
+      echo "No title";
+    else
+      echo "$i. ".$item->getTitle();
+    echo "</a>";
 
-	echo "</h1>";
+    echo "</h1>";
 
-	if(is_empty($item->getPubDate()))
-		echo "<i>"."No date"."</i><br/>";
-	else
-		echo "<i>".$item->getPubDate()."</i><br/>";
+    if(is_empty($item->getPubDate()))
+      echo "<i>"."No date"."</i><br/>";
+    else
+      echo "<i>".$item->getPubDate()."</i><br/>";
 
-	if(is_empty($item->getContent()))
-		echo "<i>"."No content"."</i><br/>";
-	else
-		echo $item->getContent()."<hr/>";
+    if(is_empty($item->getContent()))
+      echo "<i>"."No content"."</i><br/>";
+    else
+      echo $item->getContent()."<hr/>";
 
-	$i++;
+    $i++;
 }
 
 ?>
