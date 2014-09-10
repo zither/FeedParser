@@ -311,8 +311,12 @@ class FeedParserAtomElement implements IItem
         // <content> element that we query. 
         $items = $this->xpath->evaluate('//Atom:content');
 
-        if($items->length === 0)
-          return '';
+		if($items->length === 0) {
+            $items = $this->xpath->evaluate('//Atom:summary');
+            if ($items->length === 0) {
+                return null;
+            }
+        }
         return $items->item(0)->nodeValue;
     }
 
